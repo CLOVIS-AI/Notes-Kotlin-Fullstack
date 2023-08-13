@@ -19,7 +19,7 @@ pluginManagement {
 }
 
 include(
-	"app",
+	"app-cli",
 	"core",
 )
 
