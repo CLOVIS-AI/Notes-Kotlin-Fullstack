@@ -33,54 +33,48 @@ check:
 
 # endregion
 # region Build & containerize
+# region Backend
 
-app:build:
+backend:build:
   extends: [ .os.gradle ]
   needs: [ os.version ]
   stage: build
-
   script:
     - >
-      ./gradlew app:distTar
+      ./gradlew backend:distTar
       -PappVersion=$project_version
-    - mv app/build/distributions/app-*.tar app.tar
-
+    - mv backend/build/distributions/backend-*.tar backend.tar
   artifacts:
     paths:
-      - app.tar
-
+      - backend.tar
+    expose_as: 'Backend binaries'
   interruptible: true
 
-app:container:
+backend:container:
   extends: [ .os.docker.build ]
   needs:
-    - job: app:build
+    - job: backend:build
       artifacts: true
-  stage: build
-
   variables:
-    dockerfile: app/Dockerfile
-    docker_context: app
-    image: app
-
+    dockerfile: backend/Dockerfile
+    docker_context: backend
+    image: backend
   interruptible: true
 
-app:container:deploy:
+backend:container:publish:
   extends: [ .os.docker.rename ]
-  needs: [ app:container, os.version ]
+  needs: [ backend:container, os.version ]
   stage: deploy
-
   variables:
-    image: app
-
+    image: backend
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_TAG
       variables:
         new_version: $project_version
-
   interruptible: false
 
+# endregion
 # endregion
 # region Automatically mirror the previous layer of the playground
 
