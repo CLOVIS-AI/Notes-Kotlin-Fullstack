@@ -1,4 +1,4 @@
-package opensavvy.playground
+package opensavvy.notes.cli
 
 import kotlin.test.Test
 import kotlin.test.assertTrue

@@ -1,15 +1,13 @@
-# Playground: Gradle
+# OpenSavvy Notes: Kotlin Fullstack CLI
 
-<!-- When using the Playground to bootstrap a project, replace this by your project description. -->
-This a template to easily bootstrap your projects.
+This repository contains a backend and a frontend implementations of the [OpenSavvy Notes specification](specs/README.md), written entirely in Kotlin.
 
-> This project is part of the OpenSavvy Playground.
-> To learn more, visit [this page](docs/playground/README.md).
+The core layer (entity representation, validation, concurrency, caching, API DTOs…) is shared between the backend and frontend.
+The frontend is a simple CLI. Other more complex UIs will be provided by separate projects. Don't hesitate to contribute one! 
 
 ## License
 
-<!-- Mentions under which license you are publishing the project. -->
-<!-- Add the full text to the LICENSE file. -->
+This project is licensed under [Apache 2.0](LICENSE).
 
 ## Contributing
 
