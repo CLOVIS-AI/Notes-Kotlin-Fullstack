@@ -22,6 +22,10 @@ include(
 	"app-cli",
 	"backend",
 	"core",
+
+	"http-shared",
+	"http-server",
+	"http-client",
 )
 
 buildCache {
