@@ -75,6 +75,48 @@ backend:container:publish:
   interruptible: false
 
 # endregion
+# region CLI JVM
+
+cli-jvm:build:
+  extends: [ .os.gradle ]
+  needs: [ os.version ]
+  stage: build
+  script:
+    - >
+      ./gradlew app-cli:distTar
+      -PappVersion=$project_version
+    - mv app-cli/build/distributions/app-cli-*.tar cli-jvm.tar
+  artifacts:
+    paths:
+      - cli-jvm.tar
+    expose_as: 'JVM CLI binaries'
+  interruptible: true
+
+cli-jvm:container:
+  extends: [ .os.docker.build ]
+  needs:
+    - job: cli-jvm:build
+      artifacts: true
+  variables:
+    dockerfile: app-cli/jvm.dockerfile
+    docker_context: app-cli
+    image: app-cli/jvm
+  interruptible: true
+
+cli-jvm:container:publish:
+  extends: [ .os.docker.rename ]
+  needs: [ cli-jvm:container, os.version ]
+  stage: deploy
+  variables:
+    image: app-cli/jvm
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_TAG
+      variables:
+        new_version: $project_version
+  interruptible: false
+
+# endregion
 # endregion
 # region Automatically mirror the previous layer of the playground
 
