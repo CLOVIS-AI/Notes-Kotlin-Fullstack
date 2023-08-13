@@ -1,7 +1,8 @@
 package opensavvy.playground.app
 
-import opensavvy.playground.core.message
+import com.varabyte.kotter.foundation.session
+import com.varabyte.kotter.foundation.text.textLine
 
-fun main() {
-	println(message)
+fun main() = session {
+	section { textLine("Hello world!") }.run()
 }

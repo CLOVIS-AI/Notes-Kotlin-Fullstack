@@ -11,6 +11,8 @@ kotlin {
 	val commonMain by sourceSets.getting {
 		dependencies {
 			implementation(projects.core)
+
+			implementation(libs.kotter)
 		}
 	}
 
