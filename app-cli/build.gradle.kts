@@ -7,6 +7,13 @@ kotlin {
 	jvm {
 		withJava()
 	}
+	linuxX64 {
+		binaries {
+			executable {
+				entryPoint("opensavvy.playground.app.main")
+			}
+		}
+	}
 
 	val commonMain by sourceSets.getting {
 		dependencies {
