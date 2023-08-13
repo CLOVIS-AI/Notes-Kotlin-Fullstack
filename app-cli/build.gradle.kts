@@ -10,7 +10,7 @@ kotlin {
 	linuxX64 {
 		binaries {
 			executable {
-				entryPoint("opensavvy.playground.app.main")
+				entryPoint("opensavvy.notes.cli.main")
 			}
 		}
 	}
@@ -31,5 +31,5 @@ kotlin {
 }
 
 application {
-	mainClass.set("opensavvy.playground.app.MainKt")
+	mainClass.set("opensavvy.notes.cli.MainKt")
 }
