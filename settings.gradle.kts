@@ -23,6 +23,9 @@ include(
 	"backend",
 	"core",
 
+	"core-test-doubles",
+	"core-test-suites",
+
 	"http-shared",
 	"http-server",
 	"http-client",
