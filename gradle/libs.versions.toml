@@ -1,6 +1,7 @@
 [versions]
 kotlin = "1.9.0"
 kotter = "1.1.1"
+pedestal = "2.0.0-rc.9"
 
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -8,6 +9,7 @@ kotlin = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotter = { module = "com.varabyte.kotter:kotter", version.ref = "kotter" }
+pedestal-backbone = { module = "dev.opensavvy.pedestal:backbone", version.ref = "pedestal" }
 
 # To use existing plugins in convention plugins, we must also declare them as libraries
 gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
