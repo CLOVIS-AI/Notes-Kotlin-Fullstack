@@ -9,6 +9,8 @@ kotlin {
 	val commonMain by sourceSets.getting {
 		dependencies {
 			api(libs.pedestal.backbone)
+
+			api(libs.kotlinx.coroutines.core)
 		}
 	}
 }
