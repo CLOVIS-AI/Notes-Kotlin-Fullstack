@@ -9,6 +9,14 @@ sealed interface CommonFailures :
 	Account.Failures.Edit,
 	Account.Failures.EditPassword,
 	Account.Failures.LogIn,
+	Note.Failures.Get,
+	Note.Failures.List,
+	Note.Failures.Create,
+	Note.Failures.Archive,
+	Note.Failures.Delete,
+	Note.Failures.Edit,
+	Note.Failures.Share,
+	Note.Failures.AccessOtherAccounts,
 	Element.Failures.Get,
 	Element.Failures.List,
 	Element.Failures.Tick,
@@ -38,6 +46,8 @@ sealed interface CommonFailures :
  */
 sealed interface RequiresAuthentication :
 	RequiresAuthorization,
+	Note.Failures.List,
+	Note.Failures.Create,
 	Account.Failures.Get,
 	Account.Failures.Edit,
 	Account.Failures.EditPassword {
@@ -66,6 +76,12 @@ sealed interface RequiresAuthentication :
  * For example, this may happen when a resource is only available for some users.
  */
 sealed interface RequiresAuthorization :
+	Note.Failures.Get,
+	Note.Failures.Archive,
+	Note.Failures.Delete,
+	Note.Failures.Edit,
+	Note.Failures.Share,
+	Note.Failures.AccessOtherAccounts,
 	Element.Failures.Get,
 	Element.Failures.List,
 	Element.Failures.Tick,
