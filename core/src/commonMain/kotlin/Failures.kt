@@ -13,7 +13,9 @@ sealed interface CommonFailures :
 	Element.Failures.List,
 	Element.Failures.Tick,
 	Element.Failures.Add,
-	Element.Failures.Remove {
+	Element.Failures.Remove,
+	Event.Failures.Get,
+	Event.Failures.List {
 
 	/**
 	 * The client could not communicate with the backend.
@@ -69,7 +71,9 @@ sealed interface RequiresAuthorization :
 	Element.Failures.Tick,
 	Element.Failures.Edit,
 	Element.Failures.Add,
-	Element.Failures.Remove {
+	Element.Failures.Remove,
+	Event.Failures.List,
+	Event.Failures.Get {
 
 	/**
 	 * The operation failed because the user is not allowed to go through with it.
