@@ -30,6 +30,7 @@ sealed interface CommonFailures :
  * Marker interface for operations which fail for guest users.
  */
 sealed interface RequiresAuthentication :
+	RequiresAuthorization,
 	Account.Failures.Get,
 	Account.Failures.Edit,
 	Account.Failures.EditPassword {
