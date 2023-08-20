@@ -8,7 +8,12 @@ sealed interface CommonFailures :
 	Account.Failures.Create,
 	Account.Failures.Edit,
 	Account.Failures.EditPassword,
-	Account.Failures.LogIn {
+	Account.Failures.LogIn,
+	Element.Failures.Get,
+	Element.Failures.List,
+	Element.Failures.Tick,
+	Element.Failures.Add,
+	Element.Failures.Remove {
 
 	/**
 	 * The client could not communicate with the backend.
@@ -58,7 +63,13 @@ sealed interface RequiresAuthentication :
  *
  * For example, this may happen when a resource is only available for some users.
  */
-sealed interface RequiresAuthorization {
+sealed interface RequiresAuthorization :
+	Element.Failures.Get,
+	Element.Failures.List,
+	Element.Failures.Tick,
+	Element.Failures.Edit,
+	Element.Failures.Add,
+	Element.Failures.Remove {
 
 	/**
 	 * The operation failed because the user is not allowed to go through with it.
