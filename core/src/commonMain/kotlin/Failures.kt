@@ -8,7 +8,22 @@ sealed interface CommonFailures :
 	Account.Failures.Create,
 	Account.Failures.Edit,
 	Account.Failures.EditPassword,
-	Account.Failures.LogIn {
+	Account.Failures.LogIn,
+	Note.Failures.Get,
+	Note.Failures.List,
+	Note.Failures.Create,
+	Note.Failures.Archive,
+	Note.Failures.Delete,
+	Note.Failures.Edit,
+	Note.Failures.Share,
+	Note.Failures.AccessOtherAccounts,
+	Element.Failures.Get,
+	Element.Failures.List,
+	Element.Failures.Tick,
+	Element.Failures.Add,
+	Element.Failures.Remove,
+	Event.Failures.Get,
+	Event.Failures.List {
 
 	/**
 	 * The client could not communicate with the backend.
@@ -30,6 +45,9 @@ sealed interface CommonFailures :
  * Marker interface for operations which fail for guest users.
  */
 sealed interface RequiresAuthentication :
+	RequiresAuthorization,
+	Note.Failures.List,
+	Note.Failures.Create,
 	Account.Failures.Get,
 	Account.Failures.Edit,
 	Account.Failures.EditPassword {
@@ -57,7 +75,21 @@ sealed interface RequiresAuthentication :
  *
  * For example, this may happen when a resource is only available for some users.
  */
-sealed interface RequiresAuthorization {
+sealed interface RequiresAuthorization :
+	Note.Failures.Get,
+	Note.Failures.Archive,
+	Note.Failures.Delete,
+	Note.Failures.Edit,
+	Note.Failures.Share,
+	Note.Failures.AccessOtherAccounts,
+	Element.Failures.Get,
+	Element.Failures.List,
+	Element.Failures.Tick,
+	Element.Failures.Edit,
+	Element.Failures.Add,
+	Element.Failures.Remove,
+	Event.Failures.List,
+	Event.Failures.Get {
 
 	/**
 	 * The operation failed because the user is not allowed to go through with it.

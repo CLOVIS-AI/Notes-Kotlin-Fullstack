@@ -45,12 +45,19 @@ sealed class Auth : AbstractCoroutineContextElement(Key) {
 }
 
 /**
+ * Creates a [Auth] instance for this account.
+ *
+ * To get an [Auth] instance for the guest user, see [Auth.Guest].
+ */
+val Account.Ref.auth get() = Auth.Authenticated(this)
+
+/**
  * Executes [block] authenticated as [account].
  *
  * See [Auth] and [Auth.Authenticated].
  */
 suspend inline fun <T> executeAs(account: Account.Ref, crossinline block: suspend () -> T): T =
-	withContext(Auth.Authenticated(account)) {
+	withContext(account.auth) {
 		block()
 	}
 
