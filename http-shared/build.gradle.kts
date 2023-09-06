@@ -17,6 +17,9 @@ kotlin {
 		dependencies {
 			implementation(libs.kotlin.test)
 
+			implementation(projects.httpClient)
+			implementation(projects.httpServer)
+
 			implementation(libs.kotlinx.serialization.json)
 			implementation(libs.kotlinx.coroutines.test)
 

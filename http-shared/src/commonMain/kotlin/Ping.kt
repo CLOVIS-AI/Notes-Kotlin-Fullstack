@@ -1,4 +1,4 @@
-package opensavvy.note.http.shared
+package opensavvy.notes.http.shared
 
 import kotlinx.serialization.Serializable
 
