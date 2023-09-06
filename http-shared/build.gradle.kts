@@ -19,6 +19,11 @@ kotlin {
 
 			implementation(libs.kotlinx.serialization.json)
 			implementation(libs.kotlinx.coroutines.test)
+
+			implementation(libs.ktor.server.testHost)
+			implementation(libs.ktor.server.contentNegotiation)
+			implementation(libs.ktor.client.contentNegotiation)
+			implementation(libs.ktor.serialization.kotlinxJson)
 		}
 	}
 }

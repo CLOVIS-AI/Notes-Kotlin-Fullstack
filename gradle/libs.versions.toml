@@ -1,6 +1,7 @@
 [versions]
 kotlin = "1.9.0"
 kotter = "1.1.1"
+ktor = "2.3.4"
 pedestal = "2.0.0-rc.9"
 kotlinx-coroutines = "1.7.3"
 kotlinx-serialization = "1.6.0"
@@ -17,6 +18,12 @@ kotter = { module = "com.varabyte.kotter:kotter", version.ref = "kotter" }
 pedestal-backbone = { module = "dev.opensavvy.pedestal:backbone", version.ref = "pedestal" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
+ktor-server-contentNegotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-testHost = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinxJson = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 # To use existing plugins in convention plugins, we must also declare them as libraries
 gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
