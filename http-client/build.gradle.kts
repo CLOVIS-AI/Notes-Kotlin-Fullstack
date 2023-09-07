@@ -10,6 +10,8 @@ kotlin {
 		dependencies {
 			api(projects.core)
 			implementation(projects.httpShared)
+
+			api(libs.ktor.client.core)
 		}
 	}
 }
