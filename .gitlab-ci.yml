@@ -1,8 +1,8 @@
 stages:
-  - docker
-  - build
-  - test
-  - deploy
+  - docker  # create images that are needed by the rest of the build
+  - build   # create any outputs of the project (binaries, containers, charts…)
+  - test    # all quality checks
+  - deploy  # export the outputs (publish to an artifact registry, deploy on a server…)
 
 include:
   - remote: https://gitlab.com/opensavvy/ci-templates/-/raw/main/version.gitlab-ci.yml
@@ -32,7 +32,6 @@ check:
   interruptible: true
 
 # endregion
-# region Build & containerize
 # region Backend
 
 backend:build:
@@ -43,7 +42,7 @@ backend:build:
     - >
       ./gradlew backend:distTar
       -PappVersion=$project_version
-    - mv backend/build/distributions/backend-*.tar backend.tar
+    - mv backend/build/distributions/backend*.tar backend.tar
   artifacts:
     paths:
       - backend.tar
@@ -85,7 +84,7 @@ cli-jvm:build:
     - >
       ./gradlew app-cli:distTar
       -PappVersion=$project_version
-    - mv app-cli/build/distributions/app-cli-*.tar cli-jvm.tar
+    - mv app-cli/build/distributions/app-cli*.tar cli-jvm.tar
   artifacts:
     paths:
       - cli-jvm.tar
@@ -159,6 +158,49 @@ cli-linux-x64:container:publish:
   interruptible: false
 
 # endregion
+# region Publishing
+
+publish-maven:gitlab:
+  extends: [ .os.gradle ]
+  needs: [ os.version, check ]
+  stage: deploy
+
+  script:
+    - >
+      ./gradlew publishAllPublicationsToGitLabRepository
+      -PappVersion=$project_version
+
+  interruptible: false
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      when: never
+    - if: $PUBLISH_MAVEN == "manual" || $PUBLISH_MAVEN_GITLAB == "manual"
+      when: manual
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_TAG
+
+publish-maven:central:
+  extends: [ .os.gradle ]
+  needs: [ os.version, check ]
+  stage: deploy
+
+  script:
+    - export SIGNING_KEY_RING=$(mktemp)
+    - <"$SIGNING_KEY_RING_B64" base64 -d >"$SIGNING_KEY_RING"
+    - >
+      ./gradlew publishAllPublicationsToCentralRepository
+      -PappVersion=$project_version
+
+  interruptible: false
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      when: never
+    - if: $OSSRH_USERNAME == null || $OSSRH_PASSWORD == null
+      when: never
+    - if: $PUBLISH_MAVEN == "manual" || $PUBLISH_MAVEN_CENTRAL == "manual"
+      when: manual
+    - if: $CI_COMMIT_TAG
+
 # endregion
 # region Automatically mirror the previous layer of the playground
 
