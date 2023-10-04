@@ -39,7 +39,7 @@ data class Account(
 		 * @param fullName See [Account.fullName]
 		 * @param email See [Account.email]
 		 */
-		suspend fun edit(fullName: String?, email: String?): Outcome<Failures.Edit, Unit>
+		suspend fun edit(fullName: String? = null, email: String? = null): Outcome<Failures.Edit, Unit>
 
 		/**
 		 * Edits the account's password.
