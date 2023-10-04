@@ -31,14 +31,14 @@ sealed interface CommonFailures :
 	 * Because this failure is not caused by an incorrect request, but by an invalid network status, it is reasonable to
 	 * try the request again.
 	 */
-	data object ConnectionLost : CommonFailures
+	data class ConnectionLost(val technicalMessage: String) : CommonFailures
 
 	/**
 	 * The operation failed, but we could not determine why.
 	 *
 	 * In this case, it is likely unsafe to retry the request.
 	 */
-	data object UnknownError : CommonFailures
+	data class UnknownError(val technicalMessage: String) : CommonFailures
 }
 
 /**
