@@ -59,7 +59,7 @@ data class Account(
 		 * Because this invalidates the access token, all future operations executed with this account reference
 		 * will fail with [RequiresAuthentication.InvalidAuthentication].
 		 */
-		suspend fun logOut(): Outcome<Nothing, Unit>
+		suspend fun logOut()
 
 	}
 
