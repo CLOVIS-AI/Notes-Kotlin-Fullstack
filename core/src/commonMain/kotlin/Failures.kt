@@ -48,9 +48,7 @@ sealed interface RequiresAuthentication :
 	RequiresAuthorization,
 	Note.Failures.List,
 	Note.Failures.Create,
-	Account.Failures.Get,
-	Account.Failures.Edit,
-	Account.Failures.EditPassword {
+	Account.Failures.Get {
 
 	/**
 	 * The operation failed because no credentials were provided.
@@ -89,7 +87,8 @@ sealed interface RequiresAuthorization :
 	Element.Failures.Add,
 	Element.Failures.Remove,
 	Event.Failures.List,
-	Event.Failures.Get {
+	Account.Failures.Edit,
+	Account.Failures.EditPassword {
 
 	/**
 	 * The operation failed because the user is not allowed to go through with it.
