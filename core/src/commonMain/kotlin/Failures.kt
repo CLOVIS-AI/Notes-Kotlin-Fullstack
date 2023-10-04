@@ -100,3 +100,15 @@ sealed interface RequiresAuthorization :
 	 */
 	data object Unauthorized : RequiresAuthorization
 }
+
+sealed interface ResourceAccessFailure :
+	Account.Failures.Get,
+	Note.Failures.Get,
+	Element.Failures.Get,
+	Event.Failures.Get {
+
+	/**
+	 * The requested resource does not exist.
+	 */
+	data object NotFound : ResourceAccessFailure
+}
