@@ -15,6 +15,8 @@ kotlin {
 	val commonMain by sourceSets.getting {
 		dependencies {
 			api(libs.pedestal.backbone)
+			api(libs.pedestal.state)
+			api(libs.pedestal.state.arrow)
 
 			api(libs.kotlinx.coroutines.core)
 		}
