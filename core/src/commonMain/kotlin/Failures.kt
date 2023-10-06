@@ -31,14 +31,14 @@ sealed interface CommonFailures :
 	 * Because this failure is not caused by an incorrect request, but by an invalid network status, it is reasonable to
 	 * try the request again.
 	 */
-	data object ConnectionLost : CommonFailures
+	data class ConnectionLost(val technicalMessage: String) : CommonFailures
 
 	/**
 	 * The operation failed, but we could not determine why.
 	 *
 	 * In this case, it is likely unsafe to retry the request.
 	 */
-	data object UnknownError : CommonFailures
+	data class UnknownError(val technicalMessage: String) : CommonFailures
 }
 
 /**
@@ -48,9 +48,7 @@ sealed interface RequiresAuthentication :
 	RequiresAuthorization,
 	Note.Failures.List,
 	Note.Failures.Create,
-	Account.Failures.Get,
-	Account.Failures.Edit,
-	Account.Failures.EditPassword {
+	Account.Failures.Get {
 
 	/**
 	 * The operation failed because no credentials were provided.
@@ -89,7 +87,8 @@ sealed interface RequiresAuthorization :
 	Element.Failures.Add,
 	Element.Failures.Remove,
 	Event.Failures.List,
-	Event.Failures.Get {
+	Account.Failures.Edit,
+	Account.Failures.EditPassword {
 
 	/**
 	 * The operation failed because the user is not allowed to go through with it.
@@ -99,4 +98,16 @@ sealed interface RequiresAuthorization :
 	 * Retrying this operation will give the same result unless some external action changed the account's access rights.
 	 */
 	data object Unauthorized : RequiresAuthorization
+}
+
+sealed interface ResourceAccessFailure :
+	Account.Failures.Get,
+	Note.Failures.Get,
+	Element.Failures.Get,
+	Event.Failures.Get {
+
+	/**
+	 * The requested resource does not exist.
+	 */
+	data object NotFound : ResourceAccessFailure
 }

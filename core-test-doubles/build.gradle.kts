@@ -1,9 +1,16 @@
 plugins {
 	id("conventions.kotlin")
+	alias(libs.plugins.kotest)
 }
 
 kotlin {
-	jvm()
+	jvm {
+		testRuns.named("test") {
+			executionTask.configure {
+				useJUnitPlatform()
+			}
+		}
+	}
 	linuxX64()
 
 	val commonMain by sourceSets.getting {

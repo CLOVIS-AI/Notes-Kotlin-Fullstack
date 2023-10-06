@@ -39,7 +39,7 @@ data class Account(
 		 * @param fullName See [Account.fullName]
 		 * @param email See [Account.email]
 		 */
-		suspend fun edit(fullName: String?, email: String?): Outcome<Failures.Edit, Unit>
+		suspend fun edit(fullName: String? = null, email: String? = null): Outcome<Failures.Edit, Unit>
 
 		/**
 		 * Edits the account's password.
@@ -59,7 +59,7 @@ data class Account(
 		 * Because this invalidates the access token, all future operations executed with this account reference
 		 * will fail with [RequiresAuthentication.InvalidAuthentication].
 		 */
-		suspend fun logOut(): Outcome<Nothing, Unit>
+		suspend fun logOut()
 
 	}
 
