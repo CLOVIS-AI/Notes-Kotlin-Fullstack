@@ -1,19 +1,25 @@
-import java.awt.Color.red
-
 plugins {
-	id("conventions.base")
 	id("conventions.kotlin")
 	application
 }
 
 kotlin {
 	jvm {
-		withJava() // required by the application plugin
+		withJava()
+	}
+	linuxX64 {
+		binaries {
+			executable {
+				entryPoint("opensavvy.notes.cli.main")
+			}
+		}
 	}
 
 	val commonMain by sourceSets.getting {
 		dependencies {
 			implementation(projects.core)
+
+			implementation(libs.kotter)
 		}
 	}
 
@@ -25,5 +31,5 @@ kotlin {
 }
 
 application {
-	mainClass.set("opensavvy.playground.app.MainKt")
+	mainClass.set("opensavvy.notes.cli.MainKt")
 }

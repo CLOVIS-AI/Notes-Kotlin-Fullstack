@@ -8,8 +8,23 @@ kotlin {
 	jvm()
 }
 
+kotlin {
+	jvm()
+	linuxX64()
+
+	val commonMain by sourceSets.getting {
+		dependencies {
+			api(libs.pedestal.backbone)
+			api(libs.pedestal.state)
+			api(libs.pedestal.state.arrow)
+
+			api(libs.kotlinx.coroutines.core)
+		}
+	}
+}
+
 library {
-	name.set("Playground Core")
-	description.set("Project template with configured MavenCentral publication")
-	homeUrl.set("https://gitlab.com/opensavvy/playgrounds/gradle")
+	name.set("Notes Core")
+	description.set("Domain objects and contracts for OpenSavvy Notes")
+	homeUrl.set("https://gitlab.com/opensavvy/notes/kotlin-fullstack")
 }
