@@ -81,7 +81,7 @@ class FakeAccounts : Account.Service<FakeAccounts.FakeAccountRef> {
 		private val email: String,
 		private val token: Int,
 	) : Account.Ref {
-		private suspend fun isValid(): Boolean = lock.withLock("${this@FakeAccountRef}.isValid()") {
+		override suspend fun isValid(): Boolean = lock.withLock("${this@FakeAccountRef}.isValid()") {
 			val myTokens = tokens[id]
 			return myTokens != null && token in myTokens
 		}
