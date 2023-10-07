@@ -1,5 +1,6 @@
 package opensavvy.notes.core.doubles
 
+import arrow.core.raise.either
 import arrow.core.raise.ensure
 import arrow.core.raise.ensureNotNull
 import kotlinx.coroutines.flow.flow
@@ -8,7 +9,6 @@ import kotlinx.coroutines.sync.withLock
 import opensavvy.notes.core.Account
 import opensavvy.notes.core.Account.Failures
 import opensavvy.notes.core.CommonFailures
-import opensavvy.notes.core.RequiresAuthentication.InvalidAuthentication
 import opensavvy.notes.core.RequiresAuthorization.Unauthorized
 import opensavvy.notes.core.ResourceAccessFailure.NotFound
 import opensavvy.notes.core.currentAccount
@@ -81,7 +81,7 @@ class FakeAccounts : Account.Service<FakeAccounts.FakeAccountRef> {
 		private val email: String,
 		private val token: Int,
 	) : Account.Ref {
-		private suspend fun isValid(): Boolean = lock.withLock("${this@FakeAccountRef}.isValid()") {
+		override suspend fun isValid(): Boolean = lock.withLock("${this@FakeAccountRef}.isValid()") {
 			val myTokens = tokens[id]
 			return myTokens != null && token in myTokens
 		}
@@ -99,7 +99,6 @@ class FakeAccounts : Account.Service<FakeAccounts.FakeAccountRef> {
 
 		override suspend fun edit(fullName: String?, email: String?): Outcome<Failures.Edit, Unit> = out {
 			ensure(currentAccount() == this@FakeAccountRef) { Unauthorized }
-			ensure(isValid()) { InvalidAuthentication }
 
 			lock.withLock("${this@FakeAccountRef}.edit($fullName, $email)") {
 				var result = data[id]
@@ -120,7 +119,6 @@ class FakeAccounts : Account.Service<FakeAccounts.FakeAccountRef> {
 
 		override suspend fun editPassword(oldPassword: String, newPassword: String): Outcome<Failures.EditPassword, Unit> = out {
 			ensure(currentAccount() == this@FakeAccountRef) { Unauthorized }
-			ensure(isValid()) { InvalidAuthentication }
 			checkPassword(newPassword).bind()
 
 			// Use log in to check if the old password is correct
@@ -138,7 +136,7 @@ class FakeAccounts : Account.Service<FakeAccounts.FakeAccountRef> {
 		}
 
 		override suspend fun logOut() {
-			if (currentAccount() != this) return
+			if (either { currentAccount() }.getOrNull() != this) return
 			if (!isValid()) return
 
 			lock.withLock("$this.logOut()") {

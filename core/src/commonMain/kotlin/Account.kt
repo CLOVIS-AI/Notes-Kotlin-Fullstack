@@ -1,6 +1,7 @@
 package opensavvy.notes.core
 
 import opensavvy.backbone.Backbone
+import opensavvy.notes.core.RequiresAuthentication.InvalidAuthentication
 import opensavvy.state.outcome.Outcome
 
 /**
@@ -30,6 +31,15 @@ data class Account(
 	 * To learn more about this pattern, see [opensavvy.backbone.Ref].
 	 */
 	interface Ref : opensavvy.backbone.Ref<Failures.Get, Account> {
+
+		/**
+		 * An account reference carries login information.
+		 *
+		 * This function returns `true` if this reference is still valid.
+		 * This function returns `false` if this reference is invalid.
+		 * In that case, all usage of this account reference will result in [InvalidAuthentication].
+		 */
+		suspend fun isValid(): Boolean
 
 		/**
 		 * Edits the account's information.
