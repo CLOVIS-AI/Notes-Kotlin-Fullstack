@@ -1,7 +1,9 @@
 package opensavvy.notes.core
 
+import arrow.core.raise.Raise
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.withContext
+import opensavvy.notes.core.RequiresAuthentication.InvalidAuthentication
 import kotlin.coroutines.AbstractCoroutineContextElement
 import kotlin.coroutines.CoroutineContext
 
@@ -105,6 +107,11 @@ suspend fun currentAuth(): Auth =
  * - If the user is authenticated, returns their account.
  * - If the user is not authenticated, returns `null`.
  * - If no authentication information is available, throws [IllegalStateException].
+ * - If authentication is available, but is [invalid][Account.Ref.isValid], raises [InvalidAuthentication].
  */
-suspend fun currentAccount(): Account.Ref? =
+suspend fun Raise<InvalidAuthentication>.currentAccount(): Account.Ref? =
 	currentAuth().account
+		?.also {
+			if (!it.isValid())
+				raise(InvalidAuthentication)
+		}
