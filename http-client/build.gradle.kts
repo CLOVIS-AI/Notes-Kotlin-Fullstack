@@ -6,25 +6,20 @@ plugins {
 
 kotlin {
 	jvm()
-}
-
-kotlin {
-	jvm()
 	linuxX64()
 
 	val commonMain by sourceSets.getting {
 		dependencies {
-			api(libs.pedestal.backbone)
-			api(libs.pedestal.state)
-			api(libs.pedestal.state.arrow)
+			api(projects.core)
+			implementation(projects.httpShared)
 
-			api(libs.kotlinx.coroutines.core)
+			api(libs.ktor.client.core)
 		}
 	}
 }
 
 library {
-	name.set("Core")
-	description.set("Domain objects and contracts for OpenSavvy Notes")
+	name.set("HTTP client")
+	description.set("HTTP client to communicate with a Notes backend")
 	homeUrl.set("https://gitlab.com/opensavvy/notes/kotlin-fullstack")
 }

@@ -21,6 +21,11 @@ plugins {
 dependencies {
 	// List the 'library' projects
 	dokkatoo(projects.core)
+	dokkatoo(projects.coreTestDoubles)
+	dokkatoo(projects.coreTestSuites)
+	dokkatoo(projects.httpClient)
+	dokkatoo(projects.httpServer)
+	dokkatoo(projects.httpShared)
 
 	// This is required at the moment, see https://github.com/adamko-dev/dokkatoo/issues/14
 	dokkatooPluginHtml(
@@ -28,4 +33,9 @@ dependencies {
 			"org.jetbrains.dokka:all-modules-page-plugin:$dokkaVersion"
 		}
 	)
+}
+
+repositories {
+	mavenCentral()
+	google()
 }

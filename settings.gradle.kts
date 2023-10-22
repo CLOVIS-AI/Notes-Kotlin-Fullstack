@@ -7,7 +7,7 @@
  * in the user manual at https://docs.gradle.org/8.1.1/userguide/multi_project_builds.html
  */
 
-rootProject.name = "Playground"
+rootProject.name = "Notes"
 
 pluginManagement {
 	repositories {
@@ -31,8 +31,16 @@ plugins {
 }
 
 include(
-	"app",
+	"app-cli",
+	"backend",
 	"core",
+
+	"core-test-doubles",
+	"core-test-suites",
+
+	"http-shared",
+	"http-server",
+	"http-client",
 )
 
 buildCache {
