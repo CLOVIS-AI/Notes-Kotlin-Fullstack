@@ -1,6 +1,8 @@
 plugins {
+	id("conventions.base")
 	id("conventions.kotlin")
-	alias(libs.plugins.kotlinx.serialization)
+	id("conventions.library")
+	alias(playgroundLibs.plugins.kotlinx.serialization)
 }
 
 kotlin {
@@ -15,7 +17,7 @@ kotlin {
 
 	val commonTest by sourceSets.getting {
 		dependencies {
-			implementation(libs.kotlin.test)
+			implementation(playgroundLibs.kotlin.test)
 
 			implementation(projects.httpClient)
 			implementation(projects.httpServer)
@@ -29,4 +31,10 @@ kotlin {
 			implementation(libs.ktor.serialization.kotlinxJson)
 		}
 	}
+}
+
+library {
+	name.set("HTTP common code")
+	description.set("Common code between the HTTP client and server (DTOs…)")
+	homeUrl.set("https://gitlab.com/opensavvy/notes/kotlin-fullstack")
 }

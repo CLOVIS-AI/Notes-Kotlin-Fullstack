@@ -24,7 +24,7 @@ kotlin {
 }
 
 library {
-	name.set("Notes Core")
+	name.set("Core")
 	description.set("Domain objects and contracts for OpenSavvy Notes")
 	homeUrl.set("https://gitlab.com/opensavvy/notes/kotlin-fullstack")
 }

@@ -1,4 +1,5 @@
 plugins {
+	id("conventions.base")
 	id("conventions.kotlin")
 	application
 }
@@ -25,7 +26,7 @@ kotlin {
 
 	val commonTest by sourceSets.getting {
 		dependencies {
-			implementation(libs.kotlin.test)
+			implementation(playgroundLibs.kotlin.test)
 		}
 	}
 }

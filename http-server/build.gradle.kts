@@ -1,5 +1,7 @@
 plugins {
+	id("conventions.base")
 	id("conventions.kotlin")
+	id("conventions.library")
 }
 
 kotlin {
@@ -14,4 +16,10 @@ kotlin {
 			api(libs.ktor.server.core)
 		}
 	}
+}
+
+library {
+	name.set("HTTP server")
+	description.set("HTTP server to expose a Notes implementation")
+	homeUrl.set("https://gitlab.com/opensavvy/notes/kotlin-fullstack")
 }
